@@ -22,18 +22,22 @@ import lejos.robotics.SampleProvider;
  */
 public class Main {
 	private static final double radDruchmesser = 43.2;
-	
+
 	private static final double radUmfang = radDruchmesser * Math.PI;
-	
+
 	private static final double distance = (3*360* 10) / radUmfang;
-	
-	private static final double speed = distance; 
-	
+
+	private static final double beltDruchmesser = 34;
+
+	private static final double beltUmfang = beltDruchmesser * Math.PI;
+
+	private static final double speedRad = distance;
+
 	private static final double blattLaenge = 297.0;
 
 	static RegulatedMotor regulatedMotorA = new EV3LargeRegulatedMotor(MotorPort.A);
-	static RegulatedMotor regulatedMotorB = new EV3LargeRegulatedMotor(MotorPort.B);
-	static RegulatedMotor regulatedMotorC = new EV3LargeRegulatedMotor(MotorPort.C);
+	static RegulatedMotor regulatedMotorX = new EV3LargeRegulatedMotor(MotorPort.B);
+	static RegulatedMotor regulatedMotorY = new EV3LargeRegulatedMotor(MotorPort.C);
 	static LCD lcd;
 	/**
 	 * @param args
@@ -45,21 +49,28 @@ public class Main {
 
 
 		lcd.drawString("STARTING...", 1, 2);
+
+		start();
+//		regulatedMotorY.rotate(-360);
 		
-//		start();
 		toggleStift();
-		System.out.println("Speed: " + speed);
-		regulatedMotorC.setSpeed((int) speed);
+//		regulatedMotorX.setSpeed(24);
+//		regulatedMotorX.rotate(-180);
+		move(10000, -10, 0);
 		
-		try {
-			long x = System.currentTimeMillis()/1000;
-			move(10000, regulatedMotorC);
-			System.out.println("After: " + (x - (System.currentTimeMillis()/1000)));
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		System.out.println("Speed: " + speedRad);
+//		regulatedMotorC.setSpeed((int) speedRad);
+//		regulatedMotorB.setSpeed(50);
+//
+//		try {
+//			long x = System.currentTimeMillis()/1000;
+//			move(10000, regulatedMotorC, regulatedMotorB);
+//			System.out.println("After: " + (x - (System.currentTimeMillis()/1000)));
+//			Thread.sleep(1000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		toggleStift();
 	}
 
@@ -70,20 +81,20 @@ public class Main {
 
 	public static void aufg1() {
 		regulatedMotorA.rotate(180);
-		regulatedMotorB.rotate(200);
-		regulatedMotorC.rotate(300);
+		regulatedMotorX.rotate(200);
+		regulatedMotorY.rotate(300);
 
 		regulatedMotorA.rotate(-180);
-		regulatedMotorB.rotate(-200);
-		regulatedMotorC.rotate(-300);
+		regulatedMotorX.rotate(-200);
+		regulatedMotorY.rotate(-300);
 
-		regulatedMotorC.rotate(12);
-		regulatedMotorC.rotate(12);
-		regulatedMotorC.rotate(12);
-		regulatedMotorC.rotate(12);
-		regulatedMotorC.rotate(12);
-		regulatedMotorC.rotate(12);
-		regulatedMotorC.rotate(12);
+		regulatedMotorY.rotate(12);
+		regulatedMotorY.rotate(12);
+		regulatedMotorY.rotate(12);
+		regulatedMotorY.rotate(12);
+		regulatedMotorY.rotate(12);
+		regulatedMotorY.rotate(12);
+		regulatedMotorY.rotate(12);
 	}
 
 	public static void yNull() 
@@ -100,14 +111,14 @@ public class Main {
 		while(sample[0] == 0) 
 		{
 			//regulatedMotorB.rotate(12);
-			regulatedMotorB.forward();
+			regulatedMotorX.forward();
 			touch.fetchSample(sample, 0);
 		}
 
-		regulatedMotorB.stop();
+		regulatedMotorX.stop();
 
 
-		regulatedMotorB.rotate(12);
+		regulatedMotorX.rotate(12);
 	}
 
 	public static void xNull() 
@@ -124,11 +135,11 @@ public class Main {
 		while(sample[0] <= 0.18) 
 		{
 			//regulatedMotorB.rotate(12);
-			regulatedMotorC.forward();
+			regulatedMotorY.forward();
 			light.fetchSample(sample, 0);
 		}
 
-		regulatedMotorC.stop();
+		regulatedMotorY.stop();
 
 	}
 
@@ -138,10 +149,43 @@ public class Main {
 		xNull();
 	}
 
-	public static void move(int mmSek, RegulatedMotor motor) throws InterruptedException {
-		motor.backward();
+	public static void move(int mmSek, RegulatedMotor motor1, RegulatedMotor motor2) throws InterruptedException {
+		motor1.backward();
+		motor2.backward();
 		Thread.sleep(mmSek);
-		motor.stop();
+		motor1.stop();
+		motor2.stop();
+	}
+
+	public static void move(int mmSek, int xPos, int yPos) {
+		double hypoLenght = Math.sqrt(Math.pow(xPos, 2) + Math.pow(yPos,2));
+
+		double distanceRad = (3*360* yPos) / radUmfang;
+		double distanceBelt = (360* xPos) /  beltUmfang;
+
+		regulatedMotorY.setSpeed((int) distanceRad);
+		regulatedMotorX.setSpeed((int) distanceBelt);
+
+		if (xPos > 0) {
+			regulatedMotorX.forward();	
+		}else {
+			regulatedMotorX.backward();
+		}
+		
+		if (yPos > 0) {
+			regulatedMotorY.forward();	
+		}else {
+			regulatedMotorY.backward();
+		}
+		
+		try {
+			Thread.sleep(mmSek);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		regulatedMotorX.stop();
+		regulatedMotorY.stop();
 	}
 
 }
