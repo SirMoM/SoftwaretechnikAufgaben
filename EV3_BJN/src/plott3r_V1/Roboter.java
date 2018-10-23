@@ -1,61 +1,34 @@
 package plott3r_V1;
 
-import geometrie.Linie;
-import geometrie.Position2D;
-import geometrie.Position3D;
 import lejos.hardware.Button;
 import lejos.hardware.Sound;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
 import lejos.utility.Delay;
-import plott3r_V1.exception.Plott3rException;
-import plott3r_V1.move.MoveStrategie;
-import plott3r_V1.move.RotateStratgy;
-import util.Plott3rLCD;
 
 public class Roboter {
-	public static void main(String args[]) {
-		try {
-			Roboter roboter = new Roboter();
-			Sound.beep();
-			roboter.moveToHomePosition();
-			roboter.bereitePapierVor();
 
-			Linie linie = new Linie(new Position2D(50, 50), 0, 40);
-			roboter.zeichneGeometrischeFigur(linie, 20);
-
-			Delay.msDelay(1000);
-			roboter.entfernePapier();
-			roboter.moveToHomePosition();
-			Sound.twoBeeps();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private Position3D currentPosition;
-
-	private MoveStrategie moveStrategie = new RotateStratgy();
-
-	private MultiPositionAchse xAchse = new MultiPositionAchse(new TouchSensor(SensorPort.S1), MotorPort.A, Einbaurichtung.UMGEKEHRT, new Reifen(40.0), new Zahnradsatz(new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_MITTEL), new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_MITTEL)));
-	private MultiPositionAchse yAchse = new MultiPositionAchse(new LichtSensor(SensorPort.S3), MotorPort.B, Einbaurichtung.UMGEKEHRT, new Reifen(43.2), new Zahnradsatz(new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_KLEIN), new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_GROSS)));
-	private DualPositionAchse zAchse = new DualPositionAchse(null, MotorPort.C, Einbaurichtung.REGULAER, null, null);
-
+	private MultiPositionAchse xAchse; 
+	private MultiPositionAchse yAchse; 
+	private DualPositionAchse  zAchse; 
+                              
 	public Roboter() throws InterruptedException {
-
+		xAchse = new MultiPositionAchse(new TouchSensor(SensorPort.S1), MotorPort.A, Einbaurichtung.UMGEKEHRT, new Reifen(40.0), new Zahnradsatz(new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_MITTEL), new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_MITTEL)));
+		yAchse = new MultiPositionAchse(new LichtSensor(SensorPort.S3), MotorPort.B, Einbaurichtung.UMGEKEHRT, new Reifen(43.2), new Zahnradsatz(new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_KLEIN), new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_GROSS)));  
+		zAchse = new DualPositionAchse(null, MotorPort.C, Einbaurichtung.REGULAER, null, null);                                                                                                                                         
 	}
 
-	public void alarm(Plott3rException e) {
+	public void alarm(Exception exception) {
 		this.stop();
 		Sound.buzz();
 		zAchse.deaktiviere();
-		Plott3rLCD.drawString(e.getMessage());
+//		LCD.drawString(exception.getMessage());
 		Delay.msDelay(2000);
 		System.exit(0);
 	}
 
 	private void bereitePapierVor() throws InterruptedException {
-		Plott3rLCD.drawString("Blatt einlegen und PRESS");
+//		Plott3rLCD.drawString("Blatt einlegen und PRESS");
 		Button.waitForAnyPress();
 		yAchse.setSpeed(1000);
 		while (yAchse.isSensorAktiv()) {
@@ -63,7 +36,7 @@ public class Roboter {
 		}
 		yAchse.stop();
 		yAchse.resetTachoCount();
-		Plott3rLCD.drawString("PRESS Programmstarten");
+//		Plott3rLCD.drawString("PRESS Programmstarten");
 		Button.waitForAnyPress();
 	}
 
