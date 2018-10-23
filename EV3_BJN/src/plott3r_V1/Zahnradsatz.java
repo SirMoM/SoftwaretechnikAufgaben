@@ -13,6 +13,14 @@ public class Zahnradsatz implements IUebersetzung {
 
 	@Override
 	public double getUebersetzungsverhaeltnis() {
+		return zahnraeder.get(0).getZaehne()/zahnraeder.get(zahnraeder.size()-1).getZaehne(); 
+	}
+
+	@Override
+	public boolean isAntriebsUmkehrung() {
+		// TODO Auto-generated method stub
+		
+		return zahnraeder.size()%2==0;
 	}
 
 }
