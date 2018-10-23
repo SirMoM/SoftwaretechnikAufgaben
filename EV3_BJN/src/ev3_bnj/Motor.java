@@ -14,11 +14,5 @@ public class Motor extends EV3LargeRegulatedMotor{
 
 	public Motor(Port port) {
 		super(port);
-	}
-	
-	public void toStart() 
-	{
-		
-	}
-	
+	}	
 }
