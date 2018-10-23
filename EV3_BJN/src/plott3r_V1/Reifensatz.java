@@ -12,11 +12,11 @@ public class Reifensatz implements IUebersetzung {
 
 	@Override
 	public double getUebersetzungsverhaeltnis() {
+		return reifen.get(0).getUmfang() / reifen.get(reifen.size() - 1).getUmfang();
 	}
 
 	@Override
 	public boolean isAntriebsUmkehrung() {
-		// TODO Auto-generated method stub
-		return false;
+		return reifen.size()% 2 == 0;
 	}
 }
