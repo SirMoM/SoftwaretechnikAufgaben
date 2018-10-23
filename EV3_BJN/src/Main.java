@@ -1,6 +1,3 @@
-import org.jfree.chart.renderer.xy.SamplingXYLineRenderer;
-
-import lejos.ev3.tools.LCDDisplay;
 import lejos.hardware.ev3.LocalEV3;
 import lejos.hardware.lcd.LCD;
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
@@ -8,8 +5,6 @@ import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3ColorSensor;
 import lejos.hardware.sensor.EV3TouchSensor;
-import lejos.hardware.sensor.SensorMode;
-import lejos.hardware.sensor.SensorModes;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.SampleProvider;
 /**
@@ -17,7 +12,7 @@ import lejos.robotics.SampleProvider;
  */
 
 /**
- * @author jean-
+ * @author Benjamin, Jean-Paul, Noah oder Ruben
  *
  */
 public class Main {
@@ -35,43 +30,19 @@ public class Main {
 
 	private static final double blattLaenge = 297.0;
 
-	static RegulatedMotor regulatedMotorA = new EV3LargeRegulatedMotor(MotorPort.A);
-	static RegulatedMotor regulatedMotorX = new EV3LargeRegulatedMotor(MotorPort.B);
-	static RegulatedMotor regulatedMotorY = new EV3LargeRegulatedMotor(MotorPort.C);
+	static RegulatedMotor regulatedMotorA = new EV3LargeRegulatedMotor(MotorPort.D);
+	static RegulatedMotor regulatedMotorX = new EV3LargeRegulatedMotor(MotorPort.A);
+	static RegulatedMotor regulatedMotorY = new EV3LargeRegulatedMotor(MotorPort.B);
 	static LCD lcd;
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("TEST1");
-
-
-
 		lcd.drawString("STARTING...", 1, 2);
-
 		start();
-//		regulatedMotorY.rotate(-360);
-		
 		toggleStift();
-//		regulatedMotorX.setSpeed(24);
-//		regulatedMotorX.rotate(-180);
-		move(10000, -10, 0);
-		
-//		System.out.println("Speed: " + speedRad);
-//		regulatedMotorC.setSpeed((int) speedRad);
-//		regulatedMotorB.setSpeed(50);
-//
-//		try {
-//			long x = System.currentTimeMillis()/1000;
-//			move(10000, regulatedMotorC, regulatedMotorB);
-//			System.out.println("After: " + (x - (System.currentTimeMillis()/1000)));
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		toggleStift();
+
 	}
 
 	private static void toggleStift() {
@@ -79,6 +50,9 @@ public class Main {
 		regulatedMotorA.rotate(180);
 	}
 
+	/**
+	 * AUFGABE 1
+	 */
 	public static void aufg1() {
 		regulatedMotorA.rotate(180);
 		regulatedMotorX.rotate(200);
@@ -97,10 +71,10 @@ public class Main {
 		regulatedMotorY.rotate(12);
 	}
 
-	public static void yNull() 
+	public static void xNull() 
 	{
 		//check touchsensor
-		Port port = LocalEV3.get().getPort("S3");
+		Port port = LocalEV3.get().getPort("S1");
 		EV3TouchSensor sensor = new EV3TouchSensor(port);
 		SampleProvider touch= sensor.getTouchMode();
 		float[] sample = new float[touch.sampleSize()];
@@ -111,19 +85,19 @@ public class Main {
 		while(sample[0] == 0) 
 		{
 			//regulatedMotorB.rotate(12);
-			regulatedMotorX.forward();
+			regulatedMotorX.backward();
 			touch.fetchSample(sample, 0);
 		}
 
 		regulatedMotorX.stop();
 
 
-		regulatedMotorX.rotate(12);
+		regulatedMotorX.rotate(36);
 	}
 
-	public static void xNull() 
+	public static void yNull() 
 	{
-		//check touchsensor
+		//check light
 		Port port = LocalEV3.get().getPort("S2");
 		EV3ColorSensor sensor = new EV3ColorSensor(port);
 		SampleProvider light= sensor.getAmbientMode();
@@ -132,10 +106,10 @@ public class Main {
 
 		//regulatedMotorB.rotate(-400);
 
-		while(sample[0] <= 0.18) 
+		while(sample[0] >= 0.18) 
 		{
 			//regulatedMotorB.rotate(12);
-			regulatedMotorY.forward();
+			regulatedMotorY.backward();
 			light.fetchSample(sample, 0);
 		}
 
@@ -149,6 +123,13 @@ public class Main {
 		xNull();
 	}
 
+	/**
+	 * AUFGABE 5
+	 * @param mmSek
+	 * @param motor1
+	 * @param motor2
+	 * @throws InterruptedException
+	 */
 	public static void move(int mmSek, RegulatedMotor motor1, RegulatedMotor motor2) throws InterruptedException {
 		motor1.backward();
 		motor2.backward();
@@ -157,6 +138,12 @@ public class Main {
 		motor2.stop();
 	}
 
+	/**
+	 * AUFGABE 6
+	 * @param mmSek
+	 * @param xPos
+	 * @param yPos
+	 */
 	public static void move(int mmSek, int xPos, int yPos) {
 		double hypoLenght = Math.sqrt(Math.pow(xPos, 2) + Math.pow(yPos,2));
 
