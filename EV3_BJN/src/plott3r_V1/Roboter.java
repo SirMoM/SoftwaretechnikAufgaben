@@ -13,14 +13,15 @@ public class Roboter {
 	private final MultiPositionAchse xAchse = new MultiPositionAchse(new TouchSensor(SensorPort.S1), MotorPort.A, Einbaurichtung.UMGEKEHRT, new Reifen(40.0), new Zahnradsatz(new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_MITTEL), new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_MITTEL)));
 	private final MultiPositionAchse yAchse = new MultiPositionAchse(new LichtSensor(SensorPort.S3), MotorPort.B, Einbaurichtung.UMGEKEHRT, new Reifen(43.2), new Zahnradsatz(new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_KLEIN), new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_GROSS)));
 	private final DualPositionAchse zAchse = new DualPositionAchse(null, MotorPort.C, Einbaurichtung.REGULAER, null, null);
-
-	private double  xPos;
-	private double  yPos;
+	
+	
+	private double  xPos = 0;
+	private double  yPos = 0;
 	
 	private List<Instruction> instructionQ = new ArrayList<Instruction>();
 	
 	public Roboter() throws InterruptedException {
-
+		Sound.buzz();
 	}
 
 	public void alarm(Plott3rException plott3rException) {
@@ -56,12 +57,6 @@ public class Roboter {
 		finalize();
 	}
 	
-	//TODO fertig
-	private void configure() {
-		
-	}
-	
-	
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
@@ -76,7 +71,22 @@ public class Roboter {
 		return this.yAchse;
 	}
 
-// TODO 	private void moveToPosition(Position2D position2D, int mmSec) throws InterruptedException {
+	
+	public void addToQ(Instruction instruction) {
+		this.instructionQ.add(instruction);
+	}
+	
+	public Instruction nextInstruction() {
+		Instruction instruction = this.instructionQ.get(0);
+		this.instructionQ.remove(0);
+		return instruction;
+	}
+	
+	public boolean hasNextInstruction() {
+		return this.instructionQ.isEmpty()
+	}
+	
+// private void moveToPosition(Position2D position2D, int mmSec) throws InterruptedException {
 
 //TODO	private void moveToPosition(Position3D position, int mmSec) throws InterruptedException {
 
