@@ -35,19 +35,30 @@ public class Roboter {
 		System.exit(0);
 	}
 
-	// TODO goTOSart
 	public void goToStartPos() {
-		
+		goToXNull();
+		goToYNull();
 	}
 
 	//TODO fertig
 	public void goToXNull() {
-		
+		while(xAchse.isSensorAktiv()) 
+		{
+			xAchse.backward();
+		}
+		xAchse.stop();
 	}
 
 	//TODO fertig
 	public void goToYNull() {
-		
+		while(yAchse.isSensorAktiv()) 
+		{
+			//regulatedMotorB.rotate(12);
+			yAchse.backward();
+		}
+		yAchse.stop();
+
+		yAchse.stop();
 	}
 	
 	//TODO fertig
