@@ -48,6 +48,7 @@ public class MultiPositionAchse extends Achse {
 
 	public void rotateMm(double mm) {
 		// TODO: Implementierung
+		System.out.println("rotate: " + mm);
 	}
 
 }
