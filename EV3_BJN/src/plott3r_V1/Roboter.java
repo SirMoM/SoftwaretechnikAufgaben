@@ -48,8 +48,13 @@ public class Roboter {
 	}
 	
 	//TODO fertig
-	public void wrapUp() {
-		
+	public void wrapUp() throws Throwable {
+		yAchse.backward();
+		while(yAchse.isSensorAktiv()) {
+			
+		}
+		yAchse.stop();
+		finalize();
 	}
 	
 	//TODO fertig
