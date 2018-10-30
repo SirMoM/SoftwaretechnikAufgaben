@@ -100,7 +100,7 @@ public class Roboter {
 	}
 	
 	private boolean hasNextInstruction() {
-		return this.instructionQ.isEmpty();
+		return !this.instructionQ.isEmpty();
 	}
 	
 	public void processInstructions() {
