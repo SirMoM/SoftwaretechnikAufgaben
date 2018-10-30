@@ -51,7 +51,7 @@ public class MultiPositionAchse extends Achse {
 		
 		final double umfang = this.antriebsEinheit.getUmfang();
 
-		double gradToTurn = ((360 * umfang) / mm ) * gearWheelRatio;
+		double gradToTurn = ((360 * gearWheelRatio) * mm) / umfang  ;
 		System.out.println(gradToTurn);
 		try {
 		Thread.sleep(2000);
