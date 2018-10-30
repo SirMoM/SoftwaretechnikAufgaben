@@ -35,17 +35,29 @@ public class Roboter {
 
 	// TODO goTOSart
 	public void goToStartPos() {
-		
+		goToXNull();
+		goToYNull();
 	}
 
 	//TODO fertig
 	public void goToXNull() {
-		
+		while(xAchse.isSensorAktiv()) 
+		{
+			xAchse.backward();
+		}
+		xAchse.stop();
 	}
 
 	//TODO fertig
 	public void goToYNull() {
-		
+		while(yAchse.isSensorAktiv()) 
+		{
+			//regulatedMotorB.rotate(12);
+			yAchse.backward();
+		}
+		yAchse.stop();
+
+		yAchse.stop();
 	}
 	
 	//TODO fertig
@@ -83,7 +95,7 @@ public class Roboter {
 	}
 	
 	public boolean hasNextInstruction() {
-		return this.instructionQ.isEmpty()
+		return this.instructionQ.isEmpty();
 	}
 	
 // private void moveToPosition(Position2D position2D, int mmSec) throws InterruptedException {
