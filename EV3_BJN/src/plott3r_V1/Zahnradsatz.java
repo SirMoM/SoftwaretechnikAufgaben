@@ -13,7 +13,7 @@ public class Zahnradsatz implements IUebersetzung {
 
 	@Override
 	public double getUebersetzungsverhaeltnis() {
-		return zahnraeder.get(0).getZaehne()/zahnraeder.get(zahnraeder.size()-1).getZaehne(); 
+		return ((double)zahnraeder.get(0).getZaehne())/(double)zahnraeder.get(zahnraeder.size()-1).getZaehne(); 
 	}
 
 	@Override
