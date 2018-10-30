@@ -15,6 +15,8 @@ public class Roboter {
 	private final DualPositionAchse zAchse = new DualPositionAchse(null, MotorPort.C, Einbaurichtung.REGULAER, null, null);
 	
 	
+
+
 	private double  xPos = 0;
 	private double  yPos = 0;
 	
@@ -35,29 +37,22 @@ public class Roboter {
 
 	// TODO goTOSart
 	public void goToStartPos() {
-		goToXNull();
-		goToYNull();
+		
 	}
 
 	//TODO fertig
 	public void goToXNull() {
-		while(xAchse.isSensorAktiv()) 
-		{
-			xAchse.backward();
-		}
-		xAchse.stop();
+		
 	}
 
 	//TODO fertig
 	public void goToYNull() {
-		while(yAchse.isSensorAktiv()) 
-		{
-			//regulatedMotorB.rotate(12);
-			yAchse.backward();
-		}
-		yAchse.stop();
-
-		yAchse.stop();
+		
+	}
+	
+	//TODO fertig
+	public void configure() {
+		this.getXAchse().getMotor().synchronizeMotor(this.getYAchse().getMotor());
 	}
 	
 	//TODO fertig
@@ -88,19 +83,46 @@ public class Roboter {
 		this.instructionQ.add(instruction);
 	}
 	
-	public Instruction nextInstruction() {
+	private Instruction nextInstruction() {
 		Instruction instruction = this.instructionQ.get(0);
 		this.instructionQ.remove(0);
 		return instruction;
 	}
 	
-	public boolean hasNextInstruction() {
+	private boolean hasNextInstruction() {
 		return this.instructionQ.isEmpty();
+	}
+	
+	public void processInstructions() {
+		while (this.hasNextInstruction()) {
+			Instruction nextInstruction = this.nextInstruction();
+
+			if (nextInstruction.isPenDown()) {
+				this.getZAchse().aktiviere();
+			}else {
+				this.getZAchse().deaktiviere();
+			}
+			
+			if(nextInstruction.getxVectorLen() != 0 && nextInstruction.getyVectorLen() != 0) {
+
+				this.getXAchse().rotateMm(nextInstruction.getxVectorLen());
+				this.getYAchse().rotateMm(nextInstruction.getyVectorLen());
+				
+				this.getXAchse().getMotor().startSync();
+
+			}else if(nextInstruction.getxVectorLen() != 0) {
+				this.getXAchse().rotateMm(nextInstruction.getxVectorLen());
+
+			}else if(nextInstruction.getyVectorLen() != 0) {
+				this.getYAchse().rotateMm(nextInstruction.getyVectorLen());
+
+			}
+		}
 	}
 	
 // private void moveToPosition(Position2D position2D, int mmSec) throws InterruptedException {
 
-//TODO	private void moveToPosition(Position3D position, int mmSec) throws InterruptedException {
+// private void moveToPosition(Position3D position, int mmSec) throws InterruptedException {
 
 	public void stop() {
 		xAchse.stop();
@@ -110,6 +132,13 @@ public class Roboter {
 
 	public double getxPos() {
 		return xPos;
+	}
+	
+	/**
+	 * @return the zAchse
+	 */
+	public DualPositionAchse getZAchse() {
+		return zAchse;
 	}
 
 	public void setxPos(double xPos) {

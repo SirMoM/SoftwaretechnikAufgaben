@@ -22,7 +22,7 @@ public class Motor {
 		}
 		this.regulatedMotor.backward();
 	}
-
+	
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
@@ -64,6 +64,17 @@ public class Motor {
 
 	public void stop() {
 		regulatedMotor.stop();
+	}
+
+	public void synchronizeMotor(Motor motor) {
+		RegulatedMotor[] motors = {motor.regulatedMotor};
+		this.regulatedMotor.synchronizeWith(motors);
+	}
+
+	public void startSync() {
+		// TODO Auto-generated method stub
+		this.regulatedMotor.startSynchronization();
+		
 	}
 
 }
