@@ -51,7 +51,6 @@ public class Roboter {
 	public void wrapUp() throws Throwable {
 		yAchse.backward();
 		while(yAchse.isSensorAktiv()) {
-			
 		}
 		yAchse.stop();
 		finalize();
