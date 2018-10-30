@@ -76,4 +76,8 @@ public class Motor {
 		
 	}
 
+	public void endSync() {
+		this.regulatedMotor.endSynchronization();
+	}
+
 }

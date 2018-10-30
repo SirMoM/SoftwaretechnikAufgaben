@@ -115,11 +115,11 @@ public class Roboter {
 			}
 			
 			if(nextInstruction.getxVectorLen() != 0 && nextInstruction.getyVectorLen() != 0) {
-
+				this.getXAchse().getMotor().startSync();
 				this.getXAchse().rotateMm(nextInstruction.getxVectorLen());
 				this.getYAchse().rotateMm(nextInstruction.getyVectorLen());
+				this.getXAchse().getMotor().endSync();
 				
-				this.getXAchse().getMotor().startSync();
 
 			}else if(nextInstruction.getxVectorLen() != 0) {
 				this.getXAchse().rotateMm(nextInstruction.getxVectorLen());
