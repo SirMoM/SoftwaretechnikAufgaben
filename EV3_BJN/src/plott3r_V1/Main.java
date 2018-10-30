@@ -12,17 +12,14 @@ import lejos.utility.Delay;
  */
 public class Main {
 	
-	public static void main(String args[]) {
-		try {
+	public static void main(String args[]) throws Exception
+	{
+		
 			Roboter roboter = new Roboter(); //throws Exception
 			Sound.beep();
 			roboter.goToStartPos();
 			roboter.addToQ(new Instruction(false, 10, 10));
 			
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 }

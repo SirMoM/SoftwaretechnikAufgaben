@@ -11,8 +11,8 @@ import lejos.utility.Delay;
 public class Roboter {
 
 	private final MultiPositionAchse xAchse = new MultiPositionAchse(new TouchSensor(SensorPort.S1), MotorPort.A, Einbaurichtung.UMGEKEHRT, new Reifen(40.0), new Zahnradsatz(new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_MITTEL), new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_MITTEL)));
-	private final MultiPositionAchse yAchse = new MultiPositionAchse(new LichtSensor(SensorPort.S3), MotorPort.B, Einbaurichtung.UMGEKEHRT, new Reifen(43.2), new Zahnradsatz(new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_KLEIN), new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_GROSS)));
-	private final DualPositionAchse zAchse = new DualPositionAchse(null, MotorPort.C, Einbaurichtung.REGULAER, null, null);
+	private final MultiPositionAchse yAchse = new MultiPositionAchse(new LichtSensor(SensorPort.S2), MotorPort.B, Einbaurichtung.UMGEKEHRT, new Reifen(43.2), new Zahnradsatz(new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_KLEIN), new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_GROSS)));
+	private final DualPositionAchse zAchse = new DualPositionAchse(null, MotorPort.D, Einbaurichtung.REGULAER, null, null);
 	
 	
 
@@ -45,7 +45,7 @@ public class Roboter {
 	public void goToXNull() {
 		while(xAchse.getSensor().isAktiv()) 
 		{
-			xAchse.backward();
+			xAchse.forward();
 		}
 		xAchse.stop();
 	}
@@ -55,10 +55,8 @@ public class Roboter {
 		while(yAchse.getSensor().isAktiv()) 
 		{
 			//regulatedMotorB.rotate(12);
-			yAchse.backward();
+			yAchse.forward();
 		}
-		yAchse.stop();
-
 		yAchse.stop();
 	}
 	
