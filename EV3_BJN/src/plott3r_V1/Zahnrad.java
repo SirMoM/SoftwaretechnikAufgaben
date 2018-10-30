@@ -2,6 +2,8 @@ package plott3r_V1;
 
 public class Zahnrad {
 
+	//TODO ENUM
+	
 	public static final int ANZAHL_ZAEHNE_GROSS = 36;
 	public static final int ANZAHL_ZAEHNE_KLEIN = 12;
 	public static final int ANZAHL_ZAEHNE_MITTEL = 24;
