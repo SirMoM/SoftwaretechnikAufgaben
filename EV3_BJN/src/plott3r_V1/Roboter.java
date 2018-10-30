@@ -22,8 +22,9 @@ public class Roboter {
 	
 	private List<Instruction> instructionQ = new ArrayList<Instruction>();
 	
-	public Roboter() throws InterruptedException {
+	public Roboter(){
 		Sound.buzz();
+		System.out.println("NEW ROBOCOP");
 	}
 
 	public void alarm(Plott3rException plott3rException) {
@@ -141,10 +142,6 @@ public class Roboter {
 		zAchse.stop();
 	}
 
-	public double getxPos() {
-		return xPos;
-	}
-	
 	/**
 	 * @return the zAchse
 	 */
@@ -152,8 +149,35 @@ public class Roboter {
 		return zAchse;
 	}
 
+	/**
+	 * @return the xPos
+	 */
+	public double getxPos() {
+		return xPos;
+	}
+
+	/**
+	 * @return the yPos
+	 */
+	public double getyPos() {
+		return yPos;
+	}
+
+	/**
+	 * @param xPos the xPos to set
+	 */
 	public void setxPos(double xPos) {
 		this.xPos = xPos;
 	}
 
+	/**
+	 * @param yPos the yPos to set
+	 */
+	public void setyPos(double yPos) {
+		this.yPos = yPos;
+	}
+ 
 }
+
+
+

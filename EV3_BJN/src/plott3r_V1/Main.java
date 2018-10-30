@@ -16,8 +16,9 @@ public class Main {
 		try {
 			Roboter roboter = new Roboter(); //throws Exception
 			Sound.beep();
-			//testing
 			roboter.goToStartPos();
+			roboter.addToQ(new Instruction(false, 10, 10));
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
