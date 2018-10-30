@@ -47,8 +47,18 @@ public class MultiPositionAchse extends Achse {
 	}
 
 	public void rotateMm(double mm) {
-		// TODO: Implementierung
-		System.out.println("rotate: " + mm);
-	}
+		final double gearWheelRatio = this.getUebersetzungsverhaeltnis();
+		
+		final double umfang = this.antriebsEinheit.getUmfang();
 
+		double gradToTurn = ((360 * umfang) / mm ) * gearWheelRatio;
+		System.out.println(gradToTurn);
+		try {
+		Thread.sleep(2000);
+		} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		this.getMotor().rotate((int) gradToTurn) ;
+	}
 }

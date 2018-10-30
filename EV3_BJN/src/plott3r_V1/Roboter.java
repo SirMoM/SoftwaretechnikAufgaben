@@ -44,15 +44,16 @@ public class Roboter {
 		{
 			xAchse.forward();
 		}
+		
+		xAchse.rotateMm(-360);
 		xAchse.stop();
-		//xAchse.getMotor().rotate(-12);
+		
 	}
 
 	//TODO fertig
 	public void goToYNull() {
 		while(yAchse.getSensor().isAktiv()) 
 		{
-			
 			yAchse.forward();
 		}
 		yAchse.stop();
@@ -65,8 +66,9 @@ public class Roboter {
 	
 	//TODO fertig
 	public void wrapUp() throws Throwable {
-		yAchse.backward();
-		while(yAchse.getSensor().isAktiv()) {
+		
+		while(!yAchse.getSensor().isAktiv()) {
+			yAchse.forward();
 		}
 		yAchse.stop();
 		finalize();
