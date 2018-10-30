@@ -43,7 +43,7 @@ public class Roboter {
 
 	//TODO fertig
 	public void goToXNull() {
-		while(xAchse.isSensorAktiv()) 
+		while(xAchse.getSensor().isAktiv()) 
 		{
 			xAchse.backward();
 		}
@@ -52,7 +52,7 @@ public class Roboter {
 
 	//TODO fertig
 	public void goToYNull() {
-		while(yAchse.isSensorAktiv()) 
+		while(yAchse.getSensor().isAktiv()) 
 		{
 			//regulatedMotorB.rotate(12);
 			yAchse.backward();
@@ -70,7 +70,7 @@ public class Roboter {
 	//TODO fertig
 	public void wrapUp() throws Throwable {
 		yAchse.backward();
-		while(yAchse.isSensorAktiv()) {
+		while(yAchse.getSensor().isAktiv()) {
 		}
 		yAchse.stop();
 		finalize();
