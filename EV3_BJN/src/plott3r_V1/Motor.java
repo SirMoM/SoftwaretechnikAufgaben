@@ -72,7 +72,6 @@ public class Motor {
 	}
 
 	public void startSync() {
-		// TODO Auto-generated method stub
 		this.regulatedMotor.startSynchronization();
 		
 	}

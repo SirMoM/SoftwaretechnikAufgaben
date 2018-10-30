@@ -19,8 +19,8 @@ public class Main {
 			Sound.beep();
 			Sound.beep();
 			//roboter.goToStartPos();
-//			roboter.addToQ(new Instruction(false, 10, 10));
-//			roboter.processInstructions();
+			roboter.addToQ(new Instruction(false, 0, 10));
+			roboter.processInstructions();
 			roboter.getXAchse().rotateMm(1000);
 			
 			//roboter.wrapUp();

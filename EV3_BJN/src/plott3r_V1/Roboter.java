@@ -104,6 +104,7 @@ public class Roboter {
 	}
 	
 	public void processInstructions() {
+		this.xAchse.getMotor().synchronizeMotor(this.getYAchse().getMotor());
 		while (this.hasNextInstruction()) {
 			Instruction nextInstruction = this.nextInstruction();
 
