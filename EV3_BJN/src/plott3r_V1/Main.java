@@ -19,6 +19,7 @@ public class Main {
 			Sound.beep();
 			roboter.goToStartPos();
 			roboter.addToQ(new Instruction(false, 10, 10));
+			roboter.processInstructions();
 			
 	}
 

@@ -43,18 +43,19 @@ public class Roboter {
 
 	//TODO fertig
 	public void goToXNull() {
-		while(xAchse.getSensor().isAktiv()) 
+		while(!xAchse.getSensor().isAktiv()) 
 		{
 			xAchse.forward();
 		}
 		xAchse.stop();
+		//xAchse.getMotor().rotate(-12);
 	}
 
 	//TODO fertig
 	public void goToYNull() {
 		while(yAchse.getSensor().isAktiv()) 
 		{
-			//regulatedMotorB.rotate(12);
+			
 			yAchse.forward();
 		}
 		yAchse.stop();
