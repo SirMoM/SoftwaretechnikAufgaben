@@ -116,12 +116,16 @@ public class Roboter {
 			this.getZAchse().deaktiviere();
 		}
 
-		this.getXAchse().getMotor().startSync();
-		final int gradToTurnIntX = this.getXAchse().rotateMm(instruction.getxVectorLen());
-		final int gradToTurnIntY = this.getYAchse().rotateMm(instruction.getyVectorLen());
+		final int gradToTurnIntX = this.getXAchse().gradToTurnInt(instruction.getxVectorLen());
+		final int gradToTurnIntY = this.getYAchse().gradToTurnInt(instruction.getyVectorLen());
 
 		this.getXAchse().setSpeed((int) (gradToTurnIntX / instruction.getTime()));
 		this.getYAchse().setSpeed((int) (gradToTurnIntY / instruction.getTime()));
+
+		this.getXAchse().getMotor().startSync();
+
+		this.getXAchse().rotateDegree(gradToTurnIntX);
+		this.getYAchse().rotateDegree(gradToTurnIntY);
 
 		this.getXAchse().getMotor().endSync();
 		this.getXAchse().waitComplete();

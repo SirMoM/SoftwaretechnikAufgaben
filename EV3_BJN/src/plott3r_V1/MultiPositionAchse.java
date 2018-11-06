@@ -11,7 +11,7 @@ public class MultiPositionAchse extends Achse {
 	protected void waitComplete() {
 		this.getMotor().waitComplete();
 	}
-	
+
 	public void backward() {
 		this.getMotor().backward();
 	}
@@ -50,14 +50,19 @@ public class MultiPositionAchse extends Achse {
 		this.getMotor().resetTachoCount();
 	}
 
-	public int rotateMm(double mm) {
+	public int gradToTurnInt(double mm) {
 		final double gearWheelRatio = this.getUebersetzungsverhaeltnis();
 		final double umfang = this.antriebsEinheit.getUmfang();
-//		double gradToTurn = ((360 / gearWheelRatio) * mm) / umfang  ;
-		double gradToTurn = (360*mm) / (gearWheelRatio*umfang);
-//		System.out.println(gradToTurn);
+		double gradToTurn = (360 * mm) / (gearWheelRatio * umfang);
 		int gradToTurnInt = (int) gradToTurn;
-		this.getMotor().rotate(gradToTurnInt) ;
 		return gradToTurnInt;
+	}
+
+	public void rotateMm(double mm) {
+		this.getMotor().rotate(gradToTurnInt(mm));
+	}
+
+	public void rotateDegree(int degree) {
+		this.getMotor().rotate(degree);
 	}
 }
