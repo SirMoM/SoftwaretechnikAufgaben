@@ -49,7 +49,8 @@ public class MultiPositionAchse extends Achse {
 	public void rotateMm(double mm) {
 		final double gearWheelRatio = this.getUebersetzungsverhaeltnis();
 		final double umfang = this.antriebsEinheit.getUmfang();
-		double gradToTurn = ((360 / gearWheelRatio) * mm) / umfang  ;
+//		double gradToTurn = ((360 / gearWheelRatio) * mm) / umfang  ;
+		double gradToTurn = (360*mm) / (gearWheelRatio*umfang);
 		System.out.println(gradToTurn);
 		this.getMotor().rotate((int) gradToTurn) ;
 	}

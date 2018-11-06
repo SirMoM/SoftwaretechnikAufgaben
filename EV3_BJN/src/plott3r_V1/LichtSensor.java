@@ -15,7 +15,7 @@ public final class LichtSensor extends Sensor<EV3ColorSensor> {
 
 	@Override
 	protected SensorMode getSensorMode(EV3ColorSensor sensor) {
-		return sensor.getAmbientMode();
+		return sensor.getRedMode();
 	}
 
 	@Override
