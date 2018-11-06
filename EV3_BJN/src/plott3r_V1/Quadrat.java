@@ -11,13 +11,11 @@ import java.util.List;
  */
 public class Quadrat extends GeoFig {
 
-	/**
-	 * 
-	 */
-	
-	//TODO Where ?
-	public Quadrat(double sideLenght) {
+	public Quadrat(double sideLenght, double degree, int[] mittelpunkt) {
 		// TODO Auto-generated constructor stub
+		
+		
+		
 	}
 
 	
