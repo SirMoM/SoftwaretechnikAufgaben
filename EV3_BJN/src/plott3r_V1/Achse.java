@@ -46,7 +46,7 @@ public abstract class Achse {
 	}
 
 	public void setSpeed(double mmSecond) {
-		// TODO: Implementierung
+		this.motor.setSpeed((int)mmSecond);
 	}
 
 	public void stop() {
