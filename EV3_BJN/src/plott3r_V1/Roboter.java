@@ -108,9 +108,9 @@ public class Roboter {
 		while (this.hasNextInstruction()) {
 			Instruction nextInstruction = this.nextInstruction();
 
-			int defaultSpeed = 100;
+			int defaultSpeed = 300;
 			xAchse.setSpeed(defaultSpeed);
-			yAchse.setSpeed((int)((defaultSpeed * nextInstruction.getxVectorLen())/nextInstruction.getyVectorLen()));
+			yAchse.setSpeed(defaultSpeed);
 			
 			if (nextInstruction.isPenDown()) {
 				this.getZAchse().aktiviere();
@@ -119,6 +119,10 @@ public class Roboter {
 			}
 			
 			if(nextInstruction.getxVectorLen() != 0 && nextInstruction.getyVectorLen() != 0) {
+				
+				xAchse.setSpeed(defaultSpeed);
+				yAchse.setSpeed((int)((defaultSpeed * nextInstruction.getxVectorLen())/nextInstruction.getyVectorLen()));
+				
 				this.getXAchse().getMotor().startSync();
 				this.getXAchse().rotateMm(nextInstruction.getxVectorLen());
 				this.getYAchse().rotateMm(nextInstruction.getyVectorLen());
