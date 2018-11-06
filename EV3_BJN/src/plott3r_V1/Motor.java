@@ -23,6 +23,10 @@ public class Motor {
 		this.regulatedMotor.backward();
 	}
 	
+	protected void waitComplete() {
+		this.regulatedMotor.waitComplete();
+	}
+	
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();

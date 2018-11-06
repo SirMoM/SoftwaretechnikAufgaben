@@ -11,6 +11,7 @@ public class DualPositionAchse extends Achse {
 		super(sensor, port, einbaurichtung, letzteEinheit, uebersetzungsEinheiten);
 	}
 
+
 	public void aktiviere() {
 		if (this.aktiv)
 			return;

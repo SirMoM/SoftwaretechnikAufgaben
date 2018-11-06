@@ -45,8 +45,8 @@ public abstract class Achse {
 		return sensor.isAktiv();
 	}
 
-	public void setSpeed(double mmSecond) {
-		this.motor.setSpeed((int)mmSecond);
+	public void setSpeed(int grad) {
+		this.motor.setSpeed(grad);
 	}
 
 	public void stop() {

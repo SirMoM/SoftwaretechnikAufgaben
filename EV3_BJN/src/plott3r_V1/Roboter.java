@@ -14,12 +14,12 @@ public class Roboter {
 	private final MultiPositionAchse yAchse = new MultiPositionAchse(new LichtSensor(SensorPort.S2), MotorPort.B, Einbaurichtung.UMGEKEHRT, new Reifen(43.2), new Zahnradsatz(new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_KLEIN), new Zahnrad(Zahnrad.ANZAHL_ZAEHNE_GROSS)));
 	private final DualPositionAchse zAchse = new DualPositionAchse(null, MotorPort.D, Einbaurichtung.REGULAER, null, null);
 
-	private double  xPos = 0;
-	private double  yPos = 0;
-	
+	private double xPos = 0;
+	private double yPos = 0;
+
 	private List<Instruction> instructionQ = new ArrayList<Instruction>();
-	
-	public Roboter(){
+
+	public Roboter() {
 		Sound.buzz();
 		System.out.println("NEW ROBOCOP");
 	}
@@ -28,7 +28,7 @@ public class Roboter {
 		this.stop();
 		Sound.buzz();
 		zAchse.deaktiviere();
-		// AUSGABE  Exception
+		// AUSGABE Exception
 		Delay.msDelay(2000);
 		System.exit(0);
 	}
@@ -38,42 +38,40 @@ public class Roboter {
 		goToYNull();
 	}
 
-	//TODO fertig
+	// TODO fertig
 	public void goToXNull() {
-		while(!xAchse.getSensor().isAktiv()) 
-		{
+		while (!xAchse.getSensor().isAktiv()) {
 			xAchse.forward();
 		}
-		
+
 		xAchse.rotateMm(-360);
 		xAchse.stop();
-		
+
 	}
 
-	//TODO fertig
+	// TODO fertig
 	public void goToYNull() {
-		while(yAchse.getSensor().isAktiv()) 
-		{
+		while (yAchse.getSensor().isAktiv()) {
 			yAchse.forward();
 		}
 		yAchse.stop();
 	}
-	
-	//TODO fertig
+
+	// TODO fertig
 	public void configure() {
 		this.getXAchse().getMotor().synchronizeMotor(this.getYAchse().getMotor());
 	}
-	
-	//TODO fertig
+
+	// TODO fertig
 	public void wrapUp() throws Throwable {
-		
-		while(!yAchse.getSensor().isAktiv()) {
+
+		while (!yAchse.getSensor().isAktiv()) {
 			yAchse.forward();
 		}
 		yAchse.stop();
 		finalize();
 	}
-	
+
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
@@ -88,57 +86,68 @@ public class Roboter {
 		return this.yAchse;
 	}
 
-	
 	public void addToQ(Instruction instruction) {
 		this.instructionQ.add(instruction);
 	}
-	
+
 	private Instruction nextInstruction() {
 		Instruction instruction = this.instructionQ.get(0);
 		this.instructionQ.remove(0);
 		return instruction;
 	}
-	
+
 	private boolean hasNextInstruction() {
 		return !this.instructionQ.isEmpty();
 	}
-	
+
 	public void processInstructions() {
-		this.xAchse.getMotor().synchronizeMotor(this.getYAchse().getMotor());
-		while (this.hasNextInstruction()) {
-			Instruction nextInstruction = this.nextInstruction();
-
-			int defaultSpeed = 300;
-			xAchse.setSpeed(defaultSpeed);
-			yAchse.setSpeed(defaultSpeed);
-			
-			if (nextInstruction.isPenDown()) {
-				this.getZAchse().aktiviere();
-			}else {
-				this.getZAchse().deaktiviere();
-			}
-			
-			if(nextInstruction.getxVectorLen() != 0 && nextInstruction.getyVectorLen() != 0) {
-				
-				xAchse.setSpeed(defaultSpeed);
-				yAchse.setSpeed((int)((defaultSpeed * nextInstruction.getxVectorLen())/nextInstruction.getyVectorLen()));
-				
-				this.getXAchse().getMotor().startSync();
-				this.getXAchse().rotateMm(nextInstruction.getxVectorLen());
-				this.getYAchse().rotateMm(nextInstruction.getyVectorLen());
-				this.getXAchse().getMotor().endSync();
-				
-
-			}else if(nextInstruction.getxVectorLen() != 0) {
-				this.getXAchse().rotateMm(nextInstruction.getxVectorLen());
-
-			}else if(nextInstruction.getyVectorLen() != 0) {
-				this.getYAchse().rotateMm(nextInstruction.getyVectorLen());
-
-			}
-		}
+		instructionQ.add(new Instruction(false, 0, 0, 0));
+		while (this.hasNextInstruction())
+			this.processInstruction(this.nextInstruction());
 	}
-	
+
+	private void processInstruction(Instruction instruction) {
+
+		this.xAchse.getMotor().synchronizeMotor(this.getYAchse().getMotor());
+
+		if (instruction.isPenDown()) {
+			this.getZAchse().aktiviere();
+		} else {
+			this.getZAchse().deaktiviere();
+		}
+
+		this.getXAchse().getMotor().startSync();
+		final int gradToTurnIntX = this.getXAchse().rotateMm(instruction.getxVectorLen());
+		final int gradToTurnIntY = this.getYAchse().rotateMm(instruction.getyVectorLen());
+
+		this.getXAchse().setSpeed((int) (gradToTurnIntX / instruction.getTime()));
+		this.getYAchse().setSpeed((int) (gradToTurnIntY / instruction.getTime()));
+
+		this.getXAchse().getMotor().endSync();
+		this.getXAchse().waitComplete();
+		this.getYAchse().waitComplete();
+
+//			if(nextInstruction.getxVectorLen() != 0 && nextInstruction.getyVectorLen() != 0) {
+//				
+//				xAchse.setSpeed(defaultSpeed);
+//				yAchse.setSpeed((int)((defaultSpeed * nextInstruction.getxVectorLen())/nextInstruction.getyVectorLen()));
+//				
+//				this.getXAchse().getMotor().startSync();
+//				this.getXAchse().rotateMm(nextInstruction.getxVectorLen());
+//				this.getYAchse().rotateMm(nextInstruction.getyVectorLen());
+//				this.getXAchse().getMotor().endSync();
+//				
+//
+//			}else if(nextInstruction.getxVectorLen() != 0) {
+//				this.getXAchse().rotateMm(nextInstruction.getxVectorLen());
+//
+//			}else if(nextInstruction.getyVectorLen() != 0) {
+//				this.getYAchse().rotateMm(nextInstruction.getyVectorLen());
+//
+//			}
+
+	}
+
 // private void moveToPosition(Position2D position2D, int mmSec) throws InterruptedException {
 
 // private void moveToPosition(Position3D position, int mmSec) throws InterruptedException {
@@ -183,8 +192,5 @@ public class Roboter {
 	public void setyPos(double yPos) {
 		this.yPos = yPos;
 	}
- 
+
 }
-
-
-
