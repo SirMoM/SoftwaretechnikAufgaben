@@ -4,52 +4,41 @@
 package plott3r_V1;
 
 /**
- * @author student
- *
+ * @author Noah Ruben, Benjamin Wiemann, J-P Edoh
+ * @see <a href="https://github.com/SirMoM/SoftwaretechnikAufgaben">Github</a>
  */
-public class Plott3rException extends Exception {
+@SuppressWarnings("serial")
+public class Plott3rException extends Exception{
 
 	/**
 	 * 
 	 */
-	public Plott3rException() {
-		// TODO Auto-generated constructor stub
+	public Plott3rException(){
+		super();
 	}
 
 	/**
-	 * @param arg0
+	 * @param message the exception message
 	 */
-	public Plott3rException(String arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public Plott3rException(String message){
+		super(message);
 	}
 
 	/**
-	 * @param arg0
+	 * @param message   the exception message
+	 * @param throwable a Throwable
 	 */
-	public Plott3rException(Throwable arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public Plott3rException(String message, Throwable throwable){
+		super(message, throwable);
 	}
 
 	/**
-	 * @param arg0
-	 * @param arg1
-	 */
-	public Plott3rException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param message
-	 * @param cause
+	 * @param message            the exception message
+	 * @param cause              the cause as Throwable
 	 * @param enableSuppression
 	 * @param writableStackTrace
 	 */
-	public Plott3rException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public Plott3rException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace){
 		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
 	}
-
 }

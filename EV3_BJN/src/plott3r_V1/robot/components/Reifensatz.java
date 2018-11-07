@@ -1,4 +1,4 @@
-package plott3r_V1;
+package plott3r_V1.robot.components;
 
 import java.util.Arrays;
 import java.util.List;

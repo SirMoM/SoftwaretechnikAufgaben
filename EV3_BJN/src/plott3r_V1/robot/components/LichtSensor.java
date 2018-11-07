@@ -1,4 +1,4 @@
-package plott3r_V1;
+package plott3r_V1.robot.components;
 
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3ColorSensor;

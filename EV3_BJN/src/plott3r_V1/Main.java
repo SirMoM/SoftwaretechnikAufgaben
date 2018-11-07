@@ -1,17 +1,15 @@
 package plott3r_V1;
 
 import lejos.hardware.Sound;
-import lejos.hardware.motor.EV3LargeRegulatedMotor;
-import lejos.hardware.port.MotorPort;
-import lejos.robotics.RegulatedMotor;
+import plott3r_V1.robot.components.Roboter;
 
 /**
- * @author NBJ
- *
+ * @author Noah Ruben, Benjamin Wiemann, J-P Edoh
+ * @see <a href="https://github.com/SirMoM/SoftwaretechnikAufgaben">Github</a>
  */
-public class Main {
+public class Main{
 
-	public static void main(String args[]) throws Exception, Throwable {
+	public static void main(String args[]) throws Exception, Throwable{
 		Roboter roboter = new Roboter(); // throws Exception
 		Sound.beep();
 		Sound.beep();

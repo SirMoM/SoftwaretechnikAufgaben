@@ -1,4 +1,4 @@
-package plott3r_V1;
+package plott3r_V1.robot.components;
 
 import lejos.hardware.motor.EV3LargeRegulatedMotor;
 import lejos.hardware.port.Port;

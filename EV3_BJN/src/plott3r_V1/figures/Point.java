@@ -1,19 +1,21 @@
 /**
  * 
  */
-package plott3r_V1;
+package plott3r_V1.figures;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @author Student
- *
- */
-public class Point extends GeoFig {
+import plott3r_V1.Instruction;
 
-	public Point() {
+/**
+ * @author Noah Ruben, Benjamin Wiemann, J-P Edoh
+ * @see <a href="https://github.com/SirMoM/SoftwaretechnikAufgaben">Github</a>
+ */
+public class Point extends GeoFig{
+
+	public Point(){
 	}
 
 	/*
@@ -22,7 +24,7 @@ public class Point extends GeoFig {
 	 * @see plott3r_V1.GeoFig#getInstructionSet()
 	 */
 	@Override
-	public List<Instruction> getInstructionSet() {
+	public List<Instruction> getInstructionSet(){
 		return new ArrayList<Instruction>(Arrays.asList(new Instruction[] { new Instruction(true, 0, 0) }));
 	}
 
