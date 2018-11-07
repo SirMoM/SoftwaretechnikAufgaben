@@ -87,7 +87,8 @@ public class Roboter{
 	public void processInstructions(){
 		this.instructionQ.add(new Instruction(false, 0, 0, 0));
 		while (this.hasNextInstruction())
-			this.processInstruction(this.nextInstruction());
+			DisplayHandler.drawProgressbar(this.instructionQ.size());
+		this.processInstruction(this.nextInstruction());
 	}
 
 	/**
@@ -161,6 +162,7 @@ public class Roboter{
 
 		// TODO TEST THIS
 		this.currentCoordinate.moveCoordinates(instruction.getxVectorLen(), instruction.getyVectorLen());
+		DisplayHandler.writeCurrentCoordinate(this.currentCoordinate);
 		// TODO end sync here
 	}
 

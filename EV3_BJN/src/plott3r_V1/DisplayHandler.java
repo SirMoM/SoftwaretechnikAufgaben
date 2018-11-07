@@ -22,6 +22,13 @@ public class DisplayHandler{
 		}
 	}
 
+	public static int writeCurrentCoordinate(Coordinate coordinate){
+		LCD.clear(2);
+		String drawCurrentCoordinateString = String.format("Pos: (%f, %f)", coordinate.getxCoord(), coordinate.getxCoord());
+		LCD.drawString(drawCurrentCoordinateString, 0, 2);
+		return drawCurrentCoordinateString.length();
+	}
+
 	/**
 	 * @param xPos the current x-Position of the Robot
 	 * @param yPos the current y-Position of the Robot
