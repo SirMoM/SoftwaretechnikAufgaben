@@ -57,30 +57,31 @@ public class Roboter{
 	}
 
 	// TODO TEST THIS
-	public void goToStartPos(){
-		this.goToXNull();
-		this.goToYNull();
-	}
-
-	// TODO TEST THIS
-	public void goToXNull(){
-		while (!this.xAchse.getSensor().isAktiv()){
-			this.xAchse.forward();
+		public void goToStartPos(){
+			this.goToXNull();
+			this.goToYNull();
 		}
 
-		this.xAchse.rotateMm(-360);
-		this.xAchse.stop();
-		this.currentCoordinate.setxCoord(0);
-	}
-
-	// TODO TEST THIS
-	public void goToYNull(){
-		while (this.yAchse.getSensor().isAktiv()){
-			this.yAchse.forward();
+		// TODO TEST THIS
+		public void goToXNull(){
+			while (!this.xAchse.getSensor().isAktiv()) {
+					this.xAchse.forward();
+			}
+			
+			//einbaurichtung wird berücksichtigt
+			this.xAchse.rotateMm(-10);
+			this.xAchse.stop();
+			this.currentCoordinate.setxCoord(0);
 		}
-		this.yAchse.stop();
-		this.currentCoordinate.setyCoord(0);
-	}
+
+		// TODO TEST THIS
+		public void goToYNull(){
+			while (!this.yAchse.getSensor().isAktiv()){
+				this.yAchse.forward();
+			}
+			this.yAchse.stop();
+			this.currentCoordinate.setyCoord(0);
+		}
 
 	/**
 	 * Call this to tell the robot to execute all instructions.
