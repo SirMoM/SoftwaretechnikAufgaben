@@ -5,6 +5,7 @@ package plott3r_V1.figures;
 
 import java.util.List;
 
+import ev3_bnj.Robot;
 import plott3r_V1.Coordinate;
 import plott3r_V1.Instruction;
 
@@ -16,7 +17,7 @@ public abstract class GeoFig{
 
 	private Coordinate mittelpunkt;
 	private Coordinate currentCoord;
-
+	private Robot roboter;
 	public GeoFig(){
 	}
 
