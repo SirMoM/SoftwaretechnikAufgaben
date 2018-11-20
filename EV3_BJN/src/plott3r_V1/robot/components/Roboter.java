@@ -31,8 +31,25 @@ public class Roboter{
 		Sound.buzz();
 	}
 
+	/**
+	 * @param instruction
+	 */
 	public void addToQ(Instruction instruction){
 		this.instructionQ.add(instruction);
+	}
+
+	/**
+	 * @param instructions
+	 */
+	public void addToQ(List<Instruction> instructions){
+		this.instructionQ.addAll(instructions);
+	}
+
+	/**
+	 * @return the currentCoordinate
+	 */
+	public Coordinate getCurrentCoordinate(){
+		return this.currentCoordinate;
 	}
 
 	/**
@@ -57,31 +74,31 @@ public class Roboter{
 	}
 
 	// TODO TEST THIS
-		public void goToStartPos(){
-			this.goToXNull();
-			this.goToYNull();
+	public void goToStartPos(){
+		this.goToXNull();
+		this.goToYNull();
+	}
+
+	// TODO TEST THIS
+	public void goToXNull(){
+		while (!this.xAchse.getSensor().isAktiv()){
+			this.xAchse.forward();
 		}
 
-		// TODO TEST THIS
-		public void goToXNull(){
-			while (!this.xAchse.getSensor().isAktiv()) {
-					this.xAchse.forward();
-			}
-			
-			//einbaurichtung wird berücksichtigt
-			this.xAchse.rotateMm(-10);
-			this.xAchse.stop();
-			this.currentCoordinate.setxCoord(0);
-		}
+		// einbaurichtung wird berücksichtigt
+		this.xAchse.rotateMm(-10);
+		this.xAchse.stop();
+		this.currentCoordinate.setxCoord(0);
+	}
 
-		// TODO TEST THIS
-		public void goToYNull(){
-			while (!this.yAchse.getSensor().isAktiv()){
-				this.yAchse.forward();
-			}
-			this.yAchse.stop();
-			this.currentCoordinate.setyCoord(0);
+	// TODO TEST THIS
+	public void goToYNull(){
+		while (!this.yAchse.getSensor().isAktiv()){
+			this.yAchse.forward();
 		}
+		this.yAchse.stop();
+		this.currentCoordinate.setyCoord(0);
+	}
 
 	/**
 	 * Call this to tell the robot to execute all instructions.
@@ -170,25 +187,17 @@ public class Roboter{
 		// TODO end sync here
 	}
 
+	/**
+	 * @param currentCoordinate the currentCoordinate to set
+	 */
+	private void setCurrentCoordinate(Coordinate currentCoordinate){
+		this.currentCoordinate = currentCoordinate;
+	}
+
 	@Override // TODO Ask what this does
 	protected void finalize() throws Throwable{
 		super.finalize();
 		System.exit(0);
 	}
 
-	/**
-	 * @return the currentCoordinate
-	 */
-	public Coordinate getCurrentCoordinate() {
-		return currentCoordinate;
-	}
-
-	/**
-	 * @param currentCoordinate the currentCoordinate to set
-	 */
-	private void setCurrentCoordinate(Coordinate currentCoordinate) {
-		this.currentCoordinate = currentCoordinate;
-	}
-
-	
 }
