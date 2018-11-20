@@ -1,10 +1,7 @@
 /**
  * 
  */
-package plott3r_V1.robot.components;
-
-import util.Coordinate;
-import util.MathHelper;
+package util;
 
 /**
  * @see <a href="https://github.com/SirMoM/SoftwaretechnikAufgaben">Github</a>
