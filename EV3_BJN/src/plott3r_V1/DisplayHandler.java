@@ -18,14 +18,14 @@ public class DisplayHandler{
 
 	public static void drawProgressbar(int countOfInstructionsToProzess){
 		for(int i = 5; i < countOfInstructionsToProzess * 6; i += 6){
-			drawBlock(i, LCD.CELL_HEIGHT / 2);
+			drawBlock(i, 50);
 		}
 	}
 
 	public static int writeCurrentCoordinate(Coordinate coordinate){
 		LCD.clear(2);
 		String drawCurrentCoordinateString = String.format("Pos: (%f, %f)", coordinate.getxCoord(), coordinate.getxCoord());
-		LCD.drawString(drawCurrentCoordinateString, 0, 2);
+		LCD.drawString(drawCurrentCoordinateString, 0, 20);
 		return drawCurrentCoordinateString.length();
 	}
 
@@ -37,7 +37,7 @@ public class DisplayHandler{
 	public static int writeCurrentCoordinate(int xPos, int yPos){
 		LCD.clear(2);
 		String drawCurrentCoordinateString = String.format("Pos: (%d, %d)", xPos, yPos);
-		LCD.drawString(drawCurrentCoordinateString, 0, 2);
+		LCD.drawString(drawCurrentCoordinateString, 0, 20);
 		return drawCurrentCoordinateString.length();
 	}
 

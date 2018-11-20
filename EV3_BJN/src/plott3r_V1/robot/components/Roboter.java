@@ -86,9 +86,10 @@ public class Roboter{
 	 */
 	public void processInstructions(){
 		this.instructionQ.add(new Instruction(false, 0, 0, 0));
-		while (this.hasNextInstruction())
+		while (this.hasNextInstruction()){
 			DisplayHandler.drawProgressbar(this.instructionQ.size());
-		this.processInstruction(this.nextInstruction());
+			this.processInstruction(this.nextInstruction());
+		}
 	}
 
 	/**
