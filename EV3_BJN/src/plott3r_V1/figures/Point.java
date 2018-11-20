@@ -25,7 +25,7 @@ public class Point extends GeoFig{
 	 */
 	@Override
 	public List<Instruction> getInstructionSet(){
-		return new ArrayList<Instruction>(Arrays.asList(new Instruction[] { new Instruction(true, 0, 0) }));
+		return new ArrayList<Instruction>(Arrays.asList(new Instruction[] { new Instruction(true, 0, 0), new Instruction(false, 0, 0)}));
 	}
 
 }
