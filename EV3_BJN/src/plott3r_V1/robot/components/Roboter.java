@@ -175,4 +175,19 @@ public class Roboter{
 		System.exit(0);
 	}
 
+	/**
+	 * @return the currentCoordinate
+	 */
+	public Coordinate getCurrentCoordinate() {
+		return currentCoordinate;
+	}
+
+	/**
+	 * @param currentCoordinate the currentCoordinate to set
+	 */
+	private void setCurrentCoordinate(Coordinate currentCoordinate) {
+		this.currentCoordinate = currentCoordinate;
+	}
+
+	
 }

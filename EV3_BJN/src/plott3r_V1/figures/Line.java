@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import plott3r_V1.Instruction;
+import plott3r_V1.robot.components.Roboter;
 import util.Coordinate;
 
 /**
@@ -23,8 +24,8 @@ public class Line extends GeoFig{
 		this.endPoint = ende;
 	}
 
-	public Line(Coordinate mitte, Coordinate currentCoord, double lenght, double degree){
-		super(mitte, currentCoord);
+	public Line(Coordinate mitte, Roboter roboter, double lenght, double degree){
+		super(mitte, roboter);
 		this.lenght = lenght;
 		this.degree = degree;
 	}
@@ -40,13 +41,13 @@ public class Line extends GeoFig{
 			gegenkathete = Math.sin(this.degree) * hypotenuse;
 			ankathete = Math.cos(this.degree) * hypotenuse;
 
-			double moveToBeginXCoord = this.getCurrentCoord().getxCoord() - (this.getMittelpunkt().getxCoord() + ankathete);
-			double moveToBeginYCoord = this.getCurrentCoord().getyCoord() - (this.getMittelpunkt().getyCoord() + hypotenuse);
+			double moveToBeginXCoord = this.getRoboter().getCurrentCoordinate().getxCoord() - (this.getMittelpunkt().getxCoord() + ankathete);
+			double moveToBeginYCoord = this.getRoboter().getCurrentCoordinate().getyCoord() - (this.getMittelpunkt().getyCoord() + hypotenuse);
 
 			instructions.add(new Instruction(false, moveToBeginXCoord, moveToBeginYCoord));
 
-			double moveToEndXCoord = this.getCurrentCoord().getxCoord() - (this.getMittelpunkt().getxCoord() - ankathete);
-			double moveToEndYCoord = this.getCurrentCoord().getyCoord() - (this.getMittelpunkt().getyCoord() - hypotenuse);
+			double moveToEndXCoord = this.getRoboter().getCurrentCoordinate().getxCoord() - (this.getMittelpunkt().getxCoord() - ankathete);
+			double moveToEndYCoord = this.getRoboter().getCurrentCoordinate().getyCoord() - (this.getMittelpunkt().getyCoord() - hypotenuse);
 
 			instructions.add(new Instruction(false, moveToEndXCoord, moveToEndYCoord));
 		} else{

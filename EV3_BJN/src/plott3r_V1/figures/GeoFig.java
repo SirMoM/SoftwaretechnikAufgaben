@@ -5,8 +5,8 @@ package plott3r_V1.figures;
 
 import java.util.List;
 
-import ev3_bnj.Robot;
 import plott3r_V1.Instruction;
+import plott3r_V1.robot.components.Roboter;
 import util.Coordinate;
 
 /**
@@ -16,25 +16,19 @@ import util.Coordinate;
 public abstract class GeoFig{
 
 	private Coordinate mittelpunkt;
-	private Coordinate currentCoord;
-	private Robot roboter;
+	private Roboter roboter;
 	public GeoFig(){
 	}
 
 	/**
 	 * @param mittelpunkt
 	 */
-	public GeoFig(Coordinate mittelpunkt, Coordinate currentCoord){
+	public GeoFig(Coordinate mittelpunkt, Roboter roboter){
 		this.mittelpunkt = mittelpunkt;
-		this.currentCoord = currentCoord;
+		this.roboter = roboter;
 	}
 
-	/**
-	 * @return the currentCoord
-	 */
-	public Coordinate getCurrentCoord(){
-		return this.currentCoord;
-	}
+	
 
 	/**
 	 * @return A list of Instructions which determine what the Robot has does.
@@ -49,10 +43,17 @@ public abstract class GeoFig{
 	}
 
 	/**
-	 * @param currentCoord the currentCoord to set
+	 * @return the roboter
 	 */
-	public void setCurrentCoord(Coordinate currentCoord){
-		this.currentCoord = currentCoord;
+	public Roboter getRoboter() {
+		return roboter;
+	}
+
+	/**
+	 * @param roboter the roboter to set
+	 */
+	public void setRoboter(Roboter roboter) {
+		this.roboter = roboter;
 	}
 
 	/**

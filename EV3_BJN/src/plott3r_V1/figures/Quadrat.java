@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import plott3r_V1.Instruction;
+import plott3r_V1.robot.components.Roboter;
 import util.Coordinate;
 
 /**
@@ -17,18 +18,22 @@ public class Quadrat extends GeoFig{
 
 	private double sideLength;
 	private double degree;
-	private Coordinate mittelpunkt;
+	private double radius;
 	
 	// TODO FERTIG IMPL
-	public Quadrat(double sideLength, double degree, Coordinate mittelpunkt){
+	public Quadrat(double sideLength, double degree, Coordinate mittelpunkt,Roboter roboter){
+		super(mittelpunkt,roboter);
 		this.sideLength = sideLength;
 		this.degree = degree;
-		this.mittelpunkt = mittelpunkt;
+		this.radius = Math.sqrt(Math.pow((sideLength))
 	}
 
 	@Override
 	public List<Instruction> getInstructionSet(){
 		ArrayList<Instruction> instructions = new ArrayList<Instruction>();
+		instructions.add(new Instruction(false,this.getRoboter().getCurrentCoordinate().getxCoord() - this.getMittelpunkt().getxCoord() ,this.getRoboter().getCurrentCoordinate().getyCoord() - this.getMittelpunkt().getyCoord()));
+		
+		
 		instructions.add(new Instruction(false, -(sideLength/2), -(sideLength/2)));
 		instructions.addAll(new Line(new Coordinate(0,sideLength)).getInstructionSet());
 		instructions.addAll(new Line(new Coordinate(sideLength,0)).getInstructionSet());
