@@ -1,7 +1,7 @@
 /**
  * 
  */
-package plott3r_V1;
+package util;
 
 import lejos.hardware.lcd.LCD;
 

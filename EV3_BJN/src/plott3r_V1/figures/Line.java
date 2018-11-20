@@ -6,8 +6,8 @@ package plott3r_V1.figures;
 import java.util.ArrayList;
 import java.util.List;
 
-import plott3r_V1.Coordinate;
 import plott3r_V1.Instruction;
+import util.Coordinate;
 
 /**
  * @author Noah Ruben, Benjamin Wiemann, J-P Edoh

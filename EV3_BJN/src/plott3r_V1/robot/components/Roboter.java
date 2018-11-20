@@ -1,3 +1,4 @@
+
 package plott3r_V1.robot.components;
 
 import java.util.ArrayList;
@@ -6,9 +7,9 @@ import java.util.List;
 import lejos.hardware.Sound;
 import lejos.hardware.port.MotorPort;
 import lejos.hardware.port.SensorPort;
-import plott3r_V1.Coordinate;
-import plott3r_V1.DisplayHandler;
 import plott3r_V1.Instruction;
+import util.Coordinate;
+import util.DisplayHandler;
 
 /**
  * @author Rene Gerlach, Noah Ruben, Benjamin Wiehmann, Jean-Paul Edoh
@@ -88,6 +89,7 @@ public class Roboter{
 		this.instructionQ.add(new Instruction(false, 0, 0, 0));
 		while (this.hasNextInstruction()){
 			DisplayHandler.drawProgressbar(this.instructionQ.size());
+			DisplayHandler.writeCurrentCoordinate(this.currentCoordinate);
 			this.processInstruction(this.nextInstruction());
 		}
 	}
